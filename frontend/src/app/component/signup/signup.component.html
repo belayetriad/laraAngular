@@ -1,1 +1,45 @@
-<p>signup works!</p>
+<div class="mt-4 col-8 offset-2">
+    <div class="card">
+        <div class="card-header">
+            SignUp Here
+        </div>
+        <div class="card-body">
+            <div class="alert alert-danger" [hidden]="!error" >{{ error }}</div>
+            <form #regForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                  <label for="name" class="col-sm-2 col-form-label">Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" #name name="name" class="form-control" [(ngModel)]="form.name" required>
+                    <div class="alert alert-danger mt-3 mb-0" [hidden]="!errors.name" >{{ errors.name }}</div>
+                  </div>  
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-sm-2 col-form-label">Email</label>
+                  <div class="col-sm-10">
+                    <input type="email" #email name="email" class="form-control" [(ngModel)]="form.email" required>
+                    <div class="alert alert-danger mt-3 mb-0" [hidden]="!errors.email" >{{ errors.email }}</div>
+                  </div>  
+                </div>
+                <div class="form-group row">
+                  <label for="password" class="col-sm-2 col-form-label">Password</label>
+                  <div class="col-sm-10">
+                    <input type="password" #password name="password" class="form-control" [(ngModel)]="form.password" required>
+                    <div class="alert alert-danger mt-3 mb-0" [hidden]="!errors.password" >{{ errors.password }}</div>
+                  </div>
+                </div> 
+                <div class="form-group row">
+                    <label for="confirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                    <div class="col-sm-10">
+                      <input type="password" #confirmPassword name="password_confirmation" class="form-control" [(ngModel)]="form.password_confirmation" required>
+                    </div>
+                  </div>
+                <div class="form-group row">
+                  <div class="col-sm-10 offset-2">
+                    <button type="submit" class="btn btn-primary" [disabled]="!regForm.valid">SignUp</button>
+                    <a [routerLink]="['/login']" class="btn btn-success float-right">SignIn</a>
+                  </div>
+                </div>
+              </form>
+        </div>
+    </div>
+</div>
