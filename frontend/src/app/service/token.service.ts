@@ -15,8 +15,9 @@ export class TokenService {
     this.set(token);
   }
 
-  set(token) {
+  set( token ) {
     localStorage.setItem('token', token);
+    localStorage.setItem('issLogged', 'true');
   }
 
   get( item ) {
@@ -32,13 +33,15 @@ export class TokenService {
     if ( token ) {
       const payload = this.payload( token );
       if ( payload ) {
-        return Object.values( this.iss ).indexOf( payload.iss ) > -1 ? true : false;
+        return Object.values( 'http://localhost:8000/api/login' ).indexOf( payload.iss ) > -1 ? true : false;
       }
     }
+    return false;
   }
 
   payload( token ) {
     const payload = token.split('.')[1];
+    console.log(this.decode(payload));
     return this.decode(payload);
   }
 

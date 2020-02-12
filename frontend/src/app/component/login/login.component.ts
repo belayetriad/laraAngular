@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { TokenService } from './../../service/token.service';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../service/api.service';
@@ -19,23 +20,25 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private token: TokenService
+    private token: TokenService,
+    private router: Router
   ) { }
 
   onSubmit() {
    this.api.login(this.form).subscribe(
-      data => this.responseHandle(data),
-      error => this.errorHandle(error)
+      data => this.handleResponse(data),
+      error => this.handleError(error)
     );
   }
-
-  errorHandle(error) {
+  handleResponse(data) {
+    this.token.handle(data.access_token);
+    this.router.navigateByUrl('/profile');
+  }
+  handleError(error) {
     this.error = error.error.error;
   }
 
-  responseHandle(data){
-    this.token.handle(data.access_token);
-  }
+
 
   ngOnInit() {
   }
